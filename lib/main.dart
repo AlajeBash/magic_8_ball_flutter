@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:math';
 
 void main() => runApp(
       MaterialApp(
@@ -17,8 +18,9 @@ class BallPage extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           backgroundColor: Colors.blue.shade900,
-          title: const Text(appTitle),
-          titleTextStyle: TextStyle(color: Colors.white),
+          title: Center(child: const Text(appTitle)),
+          titleTextStyle: TextStyle(
+              color: Colors.white, fontSize: 20, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.blue,
         body: const Center(
@@ -33,12 +35,22 @@ class Ball extends StatefulWidget {
   const Ball({super.key});
 
   @override
-  State<Ball> createState() => _Ball();
+  State<Ball> createState() => _BallState();
 }
 
-class _Ball extends State<Ball> {
+class _BallState extends State<Ball> {
+  int ballNumber = 1;
   @override
   Widget build(BuildContext context) {
-    return Container(child: Image.asset('ball1.png'));
+    return Container(
+      child: TextButton(
+        child: Image.asset('images/ball$ballNumber.png'),
+        onPressed: () {
+          setState(() {
+            ballNumber = Random().nextInt(5) + 1;
+          });
+        },
+      ),
+    );
   }
 }
